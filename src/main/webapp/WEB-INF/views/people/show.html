@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The Users of Books</title>
+</head>
+<body>
+<div style="font-size: 28px; color: #272727;" th:text="${person.getFirstLastName() + ', ' + person.getYearOfBirth()}"></div>
+<br>
+<div th:if="${books.isEmpty()}">
+    <div>The User hasn't any book.</div>
+</div>
+<div th:if="${!books.isEmpty()}">
+    <div style="font-size: 28px; color: #272727;" th:each="book: ${books}">
+        <span>Books:</span>
+        <div style="font-size: 20px;" th:text="${book.getTitle()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">book</div>
+    </div>
+</div>
+<br>
+<hr style="height: 1.5px; background-color: darkslateblue; width: 200px; margin-left: 0">
+<br>
+<a style=" font-family: Arial; text-decoration: none; font-size: 28px; color: #272727; border-width: 0 0 0 0; background-color: aliceblue"
+   th:href="@{/people/{id}/edit(id=${person.getId()})}" }>Edit</a>
+<br>
+<form style="margin-left: 0" th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <br>
+    <input type="submit"
+           style="font-family: Arial; font-size: 28px; color: #272727; border-width: 0 0 0 0; background-color: aliceblue"
+           value="Delete"/>
+</form>
+</body>
+</html>

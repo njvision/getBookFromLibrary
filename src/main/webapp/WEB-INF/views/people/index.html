@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The Users of Books</title>
+</head>
+<body>
+<div th:each="person : ${people}">
+    <a style="text-decoration: none; font-size: 28px; color: #272727;" th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getFirstLastName() + ', ' + person.getYearOfBirth()}"></a>
+</div>
+<br>
+<hr style="height: 1.5px; background-color: darkslateblue; width: 200px; margin-left: 0">
+<br>
+<div><a th:href="@{/people/new}" style="text-decoration: none; font-size: 28px; color: #272727;">Add User</a></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The Book details</title>
+</head>
+<body>
+<div style="font-size: 28px; color: #272727;"
+     th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"></div>
+<br>
+<div th:if="${owner}">
+    <div style="font-size: 28px; color: #272727;" th:text="'Book is taked by:' + ${owner.firstLastName}"></div>
+<br>
+<form th:method="PATCH" th:action="@{/book/{id}/release(id=${book.getId()})}">
+    <label style="margin-right: 16px; font-size: 28px; color: #272727;">User return book.</label>
+    <input style="font-family: Arial; font-size: 28px; color: #272727; border-width: 0 0 0 0; background-color: aliceblue" type="submit" value="Return">
+</form>
+</div>
+<br>
+<div style="font-size: 28px; color: #272727;" th:if="${people}">
+    <span> This book can be taken:</span>
+    <form th:method="PATCH" th:action="@{/book/{id}/assign(id=${book.getId()})}">
+        <label for="people">Choose user</label>
+        <select style="font-size: 28px; color: #272727;" th:object="${person}" th:field="*{id}" id="people">
+            <option th:each="person : ${people}" th:value="${person.getId()}"
+                    th:text="${person.getFirstLastName()}"></option>
+        </select>
+        <input style="font-family: Arial; font-size: 28px; color: #272727; border-width: 0 0 0 0; background-color: aliceblue"
+               type="submit" value="Add user">
+    </form>
+</div>
+<br>
+<hr style="height: 1.5px; background-color: darkslateblue; width: 200px; margin-left: 0">
+<br>
+<a style="font-family: Arial; text-decoration: none; font-size: 28px; color: #272727; border-width: 0 0 0 0; background-color: aliceblue"
+   th:href="@{/book/{id}/edit(id=${book.getId()})}" }>Edit</a>
+<br>
+<form style="margin-left: 0" th:method="DELETE" th:action="@{/book/{id}(id=${book.getId()})}">
+    <br>
+    <input type="submit"
+           style="font-family: Arial; font-size: 28px; color: #272727; border-width: 0 0 0 0; background-color: aliceblue"
+           value="Delete"/>
+</form>
+</body>
+</html>
